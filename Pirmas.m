@@ -26,24 +26,23 @@ x1 = 0;
 x2 = 10;
 xm = 5;
 dx1 = 10;
-
+ym = (xm.^2-a).^2/b-1;
+digits(14)
 while(abs(dx1)>10^-4)
-    y = objfunDiv(xm);
-    
     len = len/2;
-    y1 = ((xm-len/2).^2-a).^2/b-1;
-    ym = (xm.^2-a).^2/b-1;
-    y2 = ((xm+len/2).^2-a).^2/b-1;
+    x1 = xm-len/2;
+    x2 = xm+len/2;
+    y2 = (x2.^2-a).^2/b-1;
+    y1 = (x1.^2-a).^2/b-1;
     if(y1 < ym)
-        x2 = xm;
-        xm = xm-len/2;
+        xm = x1;
+        ym = y1;
     elseif(y2 < ym)
-        x1 = xm;
-        xm = xm+len/2;
-    else
-        x1 = xm - len/2;
-        x2 = xm + len/2;
+        xm = x2;
+        ym = y2;
     end
+    vpa(xm)
+    plot(xm,ym,'rx')
     dx1 = len;
     nfe1 = nfe1+1;
 end
